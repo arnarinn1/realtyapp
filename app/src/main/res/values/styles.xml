@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+
+        <!-- Actionbar color -->
+        <item name="colorPrimary">@color/base_color</item>
+        <!--Status bar color-->
+        <item name="colorPrimaryDark">@color/accent_material_light</item>
+        <!--Window color-->
+        <item name="android:windowBackground">@color/background_floating_material_light</item>
+    </style>
+
+    <style name="ImageViewPagerTextStyle">
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">@color/background_color</item>
+        <item name="android:background">@color/base_color_transparent</item>
+        <item name="android:padding">5sp</item>
+    </style>
+
+</resources>
