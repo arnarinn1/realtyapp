@@ -3,4 +3,5 @@
     <color name="base_color">#14ad8f</color>
     <color name="base_color_transparent">#aa14ad8f</color>
     <color name="background_color">#ffffff</color>
+    <color name="save_pressed">#ff31ad9c</color>
 </resources>

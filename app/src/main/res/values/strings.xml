@@ -3,5 +3,9 @@
 
     <string name="app_name">Fasteignir</string>
     <string name="refresh">Refresh</string>
+    <string name="filter">Filter</string>
+    <string name="search_criteria">Leitar sía</string>
+    <string name="save_search_criteria">Vista síu</string>
+    <string name="location">Staðsetning</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package is.arnar.realty.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -43,7 +44,7 @@ public class RealtyFragment extends Fragment implements IRealtyView
         setHasOptionsMenu(true);
 
         Presenter = new RealtyPresenter(this);
-        Presenter.GetRealties();
+        RefreshData();
     }
 
     @Override
@@ -68,6 +69,9 @@ public class RealtyFragment extends Fragment implements IRealtyView
         {
             case R.id.action_refresh:
                 RefreshData();
+                return true;
+            case R.id.action_filter:
+                ShowFilter();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -112,5 +116,16 @@ public class RealtyFragment extends Fragment implements IRealtyView
                 Presenter.GetRealties();
             }
         });
+    }
+
+    private void ShowFilter()
+    {
+        FilterDialog dialog = FilterDialog.newInstance(new Action() {
+            @Override
+            public void PerformAction() {
+                RefreshData();
+            }
+        });
+        dialog.show((Context()).getFragmentManager(), "dialog");
     }
 }
