@@ -23,9 +23,10 @@ public class RealtyPresenter extends BasePresenter<IRealtyView, IRealtyService, 
 
     public void GetRealties()
     {
-        Prefs.with(View.Context()).GetStringSet(FilterDialog.REALTY_CODES, new HashSet<String>());
+        double priceFrom = PriceQueryParam(FilterDialog.Q_LOWER_PRICE_RANGE, 0);
+        double priceTo = PriceQueryParam(FilterDialog.Q_UPPER_PRICE_RANGE, 100);
 
-        System.QueryRealties(1.0, 2000000000.0, GetRealtyCodeString(), callback);
+        System.QueryRealties(priceFrom, priceTo, RealtyCodeQueryString(), callback);
     }
 
     Callback<List<RealtyData>> callback = new Callback<List<RealtyData>>()
@@ -47,17 +48,29 @@ public class RealtyPresenter extends BasePresenter<IRealtyView, IRealtyService, 
         }
     };
 
-    private String GetRealtyCodeString()
+    private String RealtyCodeQueryString()
     {
         Set<String> codes = Prefs.with(View.Context()).GetStringSet(FilterDialog.REALTY_CODES, new HashSet<String>());
+        if (codes.isEmpty()) return null;
         String serviceCode = "";
         for(String code : codes)
         {
-            serviceCode += code.replace(" ", "") + "-";
+            String[] strings = code.split("-");
+            if (strings.length == 2)
+            {
+                serviceCode += strings[1].replace(" ", "") + "-";
+            }
         }
 
         serviceCode = serviceCode.substring(0, serviceCode.length()-1);
 
         return serviceCode;
+    }
+
+    private double PriceQueryParam(String extraValue, int defValue)
+    {
+        int value = Prefs.with(View.Context()).GetInt(extraValue, defValue);
+        double factor = 1000000.0;
+        return (double) value * factor;
     }
 }

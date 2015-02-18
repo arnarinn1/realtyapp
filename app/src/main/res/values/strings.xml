@@ -7,5 +7,7 @@
     <string name="search_criteria">Leitar sía</string>
     <string name="save_search_criteria">Vista síu</string>
     <string name="location">Staðsetning</string>
+    <string name="priceFrom">Verð frá:</string>
+    <string name="priceTo">Verð til:</string>
 
 </resources>
