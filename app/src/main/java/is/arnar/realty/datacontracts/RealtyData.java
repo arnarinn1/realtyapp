@@ -12,7 +12,7 @@ public class RealtyData
     @SerializedName("name")
     private String Name;
 
-    @SerializedName("Price")
+    @SerializedName("price")
     private double Price;
 
     @SerializedName("assessment_value")
@@ -51,4 +51,10 @@ public class RealtyData
 
     public String getCreatedAt() { return this.CreatedAt;}
     public String getUpdatedAt() { return this.UpdatedAt;}
+
+    public String getPriceValue()
+    {
+        double price = this.Price / 1000000.0;
+        return String.format("%.1f m.kr", price);
+    }
 }

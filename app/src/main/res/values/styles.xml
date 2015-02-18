@@ -19,6 +19,13 @@
         <item name="android:padding">5sp</item>
     </style>
 
+    <style name="ImageViewPagerTextStyleSolidBackground">
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">@color/background_color</item>
+        <item name="android:background">@color/base_color</item>
+        <item name="android:padding">5sp</item>
+    </style>
+
     <style name="HeaderStyle">
         <item name="android:typeface">serif</item>
         <item name="android:textColor">@color/background_color</item>

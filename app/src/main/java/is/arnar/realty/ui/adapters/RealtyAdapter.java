@@ -41,6 +41,7 @@ public class RealtyAdapter extends BaseAdapter
         @InjectView(R.id.lvImageViewPager)  ViewPager imageViewPager;
         @InjectView(R.id.lvRealtyName) TextView realtyName;
         @InjectView(R.id.lvRealtyCode) TextView realtyCode;
+        @InjectView(R.id.lvRealtyPrice) TextView realtyPrice;
     }
 
     @Override
@@ -67,6 +68,7 @@ public class RealtyAdapter extends BaseAdapter
 
         holder.realtyName.setText(realty.getName());
         holder.realtyCode.setText(realty.getRealtyCode().getNameAndCode());
+        holder.realtyPrice.setText(realty.getPriceValue());
 
         holder.imageViewPager.setAdapter(adapter);
         holder.imageViewPager.setPageTransformer(true, new DeptPageTransformer());

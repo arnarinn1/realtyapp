@@ -20,6 +20,8 @@ import butterknife.OnClick;
 import is.arnar.realty.R;
 import is.arnar.realty.datacontracts.interfaces.Action;
 import is.arnar.realty.systems.Prefs;
+import is.arnar.realty.ui.customviews.MultiSelectSpinner;
+import is.arnar.realty.ui.customviews.RangeSeekBar;
 
 public class FilterDialog extends DialogFragment
 {
@@ -27,7 +29,8 @@ public class FilterDialog extends DialogFragment
     public static final String Q_LOWER_PRICE_RANGE = "is.arnar.realty.ui.LOWERPRICE";
     public static final String Q_UPPER_PRICE_RANGE = "is.arnar.realty.ui.UPPERPRICE";
 
-    @InjectView(R.id.multiSelect) MultiSelectSpinner mMultiSpinnerCodes;
+    @InjectView(R.id.multiSelect)
+    MultiSelectSpinner mMultiSpinnerCodes;
     @InjectView(R.id.save_filter) Button mSaveFilter;
     @InjectView(R.id.price) LinearLayout mPriceLayout;
     @InjectView(R.id.priceFrom) TextView mPriceFrom;

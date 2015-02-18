@@ -26,4 +26,12 @@
         android:layout_gravity="bottom|end"
         android:textSize="20sp"/>
 
+    <TextView
+        android:id="@+id/lvRealtyPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ImageViewPagerTextStyleSolidBackground"
+        android:layout_gravity="bottom"
+        android:textSize="20sp"/>
+
 </FrameLayout>

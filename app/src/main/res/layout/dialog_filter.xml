@@ -62,7 +62,7 @@
 
     <include layout="@layout/splitter" />
 
-    <is.arnar.realty.ui.MultiSelectSpinner
+    <is.arnar.realty.ui.customviews.MultiSelectSpinner
         android:id="@+id/multiSelect"
         android:layout_width="match_parent"
         android:layout_height="50sp"
