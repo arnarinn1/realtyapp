@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity$PlaceholderFragment">
+
+    <ListView
+        android:id="@+id/realtyImages"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@color/background_color"
+        android:dividerHeight="2sp"/>
+
+    <ProgressBar
+        android:id="@+id/realtyProgress"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
+    <FrameLayout
+        android:id="@+id/layoutNoConnection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:animateLayoutChanges="true">
+
+        <ImageView
+            android:id="@+id/userInfoImage"
+            android:layout_width="wrap_content"
+            android:layout_height="100sp"
+            android:layout_marginBottom="60sp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/userInfoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:textSize="25sp"
+            android:padding="10sp"
+            android:layout_gravity="center"
+            android:textColor="#000"
+            android:gravity="center"
+            android:typeface="serif"/>
+
+    </FrameLayout>
+
+</RelativeLayout>

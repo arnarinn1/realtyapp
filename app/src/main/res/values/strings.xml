@@ -12,5 +12,7 @@
     <string name="realtyType">Tegund</string>
     <string name="lowerRoom">Herbergi frá:</string>
     <string name="upperRoom">Herbergi til:</string>
+    <string name="no_internet">Verður að tengjast neti til að sjá fasteignir.</string>
+    <string name="no_data">Fann engar fasteignir. Prufaðu að útvíkka leitarskilyrðin.</string>
 
 </resources>
