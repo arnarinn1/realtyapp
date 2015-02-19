@@ -16,6 +16,9 @@ public class RealtyData implements Serializable
     @SerializedName("price")
     private double Price;
 
+    @SerializedName("description")
+    private String Description;
+
     @SerializedName("assessment_value")
     private double AssessmentValue;
 
@@ -34,6 +37,9 @@ public class RealtyData implements Serializable
     @SerializedName("images")
     private List<ImageData> Images;
 
+    @SerializedName("properties")
+    private List<PropertyData> Properties;
+
     @SerializedName("created_at")
     private String CreatedAt;
 
@@ -43,12 +49,14 @@ public class RealtyData implements Serializable
     public int getId() { return this.Id;}
     public String getName() { return this.Name;}
     public double getPrice() { return this.Price;}
+    public String getDescription() {return this.Description;}
     public double getAssessmentValue() { return this.AssessmentValue;}
     public double getFireInsuranceValue() { return this.FireInsuranceValue;}
     public String getLocation() { return this.Location;}
     public RealtorData getRealtor() { return this.Realtor;}
     public RealtyCodeData getRealtyCode() { return this.RealtyCode;}
     public List<ImageData> getImages() { return this.Images;}
+    public List<PropertyData> getProperties() { return this.Properties;}
 
     public String getCreatedAt() { return this.CreatedAt;}
     public String getUpdatedAt() { return this.UpdatedAt;}

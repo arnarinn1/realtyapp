@@ -84,7 +84,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:layout_marginLeft="40sp"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:lineSpacingMultiplier="1.3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/extra_information"
+            android:layout_marginTop="10sp"
+            android:drawableLeft="@drawable/ic_action_storage"
             style="@style/ProfileAboutStyle"/>
+
+        <TextView
+            android:id="@+id/realtyProperties"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginLeft="40sp"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:lineSpacingMultiplier="1.3"/>
 
         <include layout="@layout/splitter" />
 
@@ -100,27 +121,26 @@
             android:textSize="30sp"
             />
 
+        <TextView
+            android:id="@+id/realtorPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_phone"
+            style="@style/ProfileAboutStyle"/>
+
+        <TextView
+            android:id="@+id/realtorEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_email"
+            style="@style/ProfileAboutStyle"/>
+
         <ImageView
             android:id="@+id/realtorImage"
             android:layout_width="match_parent"
             android:layout_height="140sp"
             android:scaleType="fitXY"
-
             android:layout_margin="10sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="461-1437"
-            android:drawableLeft="@drawable/ic_action_phone"
-            style="@style/ProfileAboutStyle"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="remax@island.is"
-            android:drawableLeft="@drawable/ic_action_email"
-            style="@style/ProfileAboutStyle"/>
 
 
     </LinearLayout>
