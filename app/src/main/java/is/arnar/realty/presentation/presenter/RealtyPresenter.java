@@ -26,7 +26,10 @@ public class RealtyPresenter extends BasePresenter<IRealtyView, IRealtyService, 
         double priceFrom = PriceQueryParam(FilterDialog.Q_LOWER_PRICE_RANGE, 0);
         double priceTo = PriceQueryParam(FilterDialog.Q_UPPER_PRICE_RANGE, 100);
 
-        System.QueryRealties(priceFrom, priceTo, RealtyCodeQueryString(), callback);
+        String lowerRoom = Prefs.with(View.Context()).GetString(FilterDialog.Q_LOWER_ROOM_RANGE, "1");
+        String upperRoom = Prefs.with(View.Context()).GetString(FilterDialog.Q_UPPER_ROOM_RANGE, "9");
+
+        System.QueryRealties(priceFrom, priceTo, lowerRoom, upperRoom, RealtyCodeQueryString(), callback);
     }
 
     Callback<List<RealtyData>> callback = new Callback<List<RealtyData>>()

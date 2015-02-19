@@ -15,6 +15,8 @@ public interface IRealtyService
     @GET("/realtyQuery")
     void QueryRealties(@Query("lower_price") double lowerPrice,
                        @Query("upper_price") double upperPrice,
+                       @Query("lower_room")  String lowerRoom,
+                       @Query("upper_room")  String upperRoom,
                        @Query("realtyCodes") String realtyCodes,
                        Callback<List<RealtyData>> realties);
 }

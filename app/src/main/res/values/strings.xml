@@ -9,5 +9,8 @@
     <string name="location">Staðsetning</string>
     <string name="priceFrom">Verð frá:</string>
     <string name="priceTo">Verð til:</string>
+    <string name="realtyType">Tegund</string>
+    <string name="lowerRoom">Herbergi frá:</string>
+    <string name="upperRoom">Herbergi til:</string>
 
 </resources>
