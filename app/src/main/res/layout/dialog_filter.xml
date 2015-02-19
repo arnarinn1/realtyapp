@@ -20,7 +20,7 @@
         />
 
     <LinearLayout
-        android:id="@+id/price"
+        android:id="@+id/filterPriceLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
     <include layout="@layout/splitter" />
 
     <LinearLayout
-        android:id="@+id/roomsLayout"
+        android:id="@+id/filterRoomLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         >
 
         <TextView
-            android:id="@+id/lowerRoom"
+            android:id="@+id/lowerRoomNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lowerRoom"
@@ -70,7 +70,7 @@
             android:paddingBottom="5sp"/>
 
         <TextView
-            android:id="@+id/upperRoom"
+            android:id="@+id/upperRoomNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/upperRoom"
@@ -95,7 +95,7 @@
     <include layout="@layout/splitter" />
 
     <is.arnar.realty.ui.customviews.MultiSelectSpinner
-        android:id="@+id/multiSelect"
+        android:id="@+id/multiSelectCodes"
         android:layout_width="match_parent"
         android:layout_height="50sp"
         android:background="#fff"

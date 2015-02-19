@@ -31,24 +31,25 @@ public class FilterDialog extends DialogFragment
     public static final String Q_LOWER_ROOM_RANGE = "is.arnar.realty.ui.LOWERROOM";
     public static final String Q_UPPER_ROOM_RANGE = "is.arnar.realty.ui.UPPERROOM";
 
-    @InjectView(R.id.multiSelect) MultiSelectSpinner mMultiSpinnerCodes;
+    @InjectView(R.id.multiSelectCodes) MultiSelectSpinner mMultiSpinnerCodes;
     @InjectView(R.id.multiSelectTypes) MultiSelectSpinner mMultiSpinnerTypes;
     @InjectView(R.id.save_filter) Button mSaveFilter;
-    @InjectView(R.id.price) LinearLayout mPriceLayout;
+
+    @InjectView(R.id.filterPriceLayout) LinearLayout mPriceLayout;
     @InjectView(R.id.priceFrom) TextView mPriceFrom;
     @InjectView(R.id.priceTo) TextView mPriceTo;
 
-    @InjectView(R.id.roomsLayout) LinearLayout mRoomsLayout;
-    @InjectView(R.id.lowerRoom) TextView mLowerRoomNumber;
-    @InjectView(R.id.upperRoom) TextView mUpperRoomNumber;
+    @InjectView(R.id.filterRoomLayout) LinearLayout mRoomsLayout;
+    @InjectView(R.id.lowerRoomNumber) TextView mLowerRoomNumber;
+    @InjectView(R.id.upperRoomNumber) TextView mUpperRoomNumber;
 
     private RangeSeekBar<Integer> mSeekPriceBar;
-    private RangeSeekBar<Integer> mSeekRoomsBar;
+    private RangeSeekBar<Integer> mSeekRoomBar;
 
     private String mPriceFromStr;
     private String mPriceToStr;
-    private String mRoomsFromStr;
-    private String mRoomsToStr;
+    private String mLowerRoomStr;
+    private String mUpperRoomStr;
 
     private Action action;
 
@@ -59,6 +60,11 @@ public class FilterDialog extends DialogFragment
         FilterDialog f = new FilterDialog();
         f.setAction(action);
         return f;
+    }
+
+    public void setAction(Action action)
+    {
+        this.action = action;
     }
 
     @Override
@@ -83,6 +89,7 @@ public class FilterDialog extends DialogFragment
         super.onActivityCreated(savedInstanceState);
 
         GetStringValues();
+
         AddPriceSeekBar();
         AddRoomSeekBar();
 
@@ -93,41 +100,47 @@ public class FilterDialog extends DialogFragment
         SetRealtyTypes();
     }
 
-    private void SetRealtyTypes()
-    {
-        String[] strings = {"Allar tegundir", "Einbýli", "Fjölbýli"};
-        mMultiSpinnerTypes.setItems(strings);
-
-        mMultiSpinnerTypes.setSelection(new String[]{"Allar tegundir"});
-        mMultiSpinnerTypes.showSpinnerText();
-    }
-
-    private void SetRealtyCodeValues()
-    {
-        String[] strings = {"Öll svæði", "Reykjavík - 101", "Seltjarnarnes - 170", "Akureyri - 603"};
-        mMultiSpinnerCodes.setItems(strings);
-
-        Set<String> codes = Prefs.with(getActivity()).GetStringSet(REALTY_CODES, new HashSet<String>());
-        if (codes.isEmpty())
-           mMultiSpinnerCodes.setSelection(new String[]{"Öll svæði"});
-
-        List<String> selections = new ArrayList<>();
-        for(String code : codes)
-        {
-            selections.add(code);
-        }
-
-        mMultiSpinnerCodes.setSelection(selections);
-        mMultiSpinnerCodes.showSpinnerText();
-    }
-
     private void GetStringValues()
     {
         mPriceToStr = getActivity().getString(R.string.priceTo);
         mPriceFromStr = getActivity().getString(R.string.priceFrom);
 
-        mRoomsFromStr = getActivity().getString(R.string.lowerRoom);
-        mRoomsToStr = getActivity().getString(R.string.upperRoom);
+        mLowerRoomStr = getActivity().getString(R.string.lowerRoom);
+        mUpperRoomStr = getActivity().getString(R.string.upperRoom);
+    }
+
+    private void AddPriceSeekBar()
+    {
+        mSeekPriceBar = new RangeSeekBar<>(5, 100, getActivity());
+
+        mSeekPriceBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
+                String priceFromValue = minValue.toString();
+                String priceToValue = maxValue.toString();
+                mPriceFrom.setText(mPriceFromStr + " " + priceFromValue + " m.kr");
+                mPriceTo.setText(mPriceToStr + " " + priceToValue + " m.kr");
+            }
+        });
+
+        mPriceLayout.addView(mSeekPriceBar);
+    }
+
+    private void AddRoomSeekBar()
+    {
+        mSeekRoomBar = new RangeSeekBar<>(1, 9, getActivity());
+
+        mSeekRoomBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
+                String roomsFrom = minValue.toString();
+                String roomsTo = maxValue.toString();
+                mLowerRoomNumber.setText(mLowerRoomStr + " " + roomsFrom);
+                mUpperRoomNumber.setText(mUpperRoomStr + " " + roomsTo);
+            }
+        });
+
+        mRoomsLayout.addView(mSeekRoomBar);
     }
 
     private void SetPriceValues()
@@ -149,11 +162,39 @@ public class FilterDialog extends DialogFragment
         int lowerRoom = Integer.parseInt(Prefs.with(getActivity()).GetString(Q_LOWER_ROOM_RANGE, "1"));
         int upperRoom = Integer.parseInt(Prefs.with(getActivity()).GetString(Q_UPPER_ROOM_RANGE, "9"));
 
-        mSeekRoomsBar.setSelectedMinValue(lowerRoom);
-        mSeekRoomsBar.setSelectedMaxValue(upperRoom);
+        mSeekRoomBar.setSelectedMinValue(lowerRoom);
+        mSeekRoomBar.setSelectedMaxValue(upperRoom);
 
-        mLowerRoomNumber.setText(String.format("%s %d", mRoomsFromStr, lowerRoom));
-        mUpperRoomNumber.setText(String.format("%s %d", mRoomsToStr, upperRoom));
+        mLowerRoomNumber.setText(String.format("%s %d", mLowerRoomStr, lowerRoom));
+        mUpperRoomNumber.setText(String.format("%s %d", mUpperRoomStr, upperRoom));
+    }
+
+    private void SetRealtyCodeValues()
+    {
+        String[] strings = {"Öll svæði", "Reykjavík - 101", "Seltjarnarnes - 170", "Akureyri - 603"};
+        mMultiSpinnerCodes.setItems(strings);
+
+        Set<String> codes = Prefs.with(getActivity()).GetStringSet(REALTY_CODES, new HashSet<String>());
+        if (codes.isEmpty())
+           mMultiSpinnerCodes.setSelection(new String[]{"Öll svæði"});
+
+        List<String> selections = new ArrayList<>();
+        for(String code : codes)
+        {
+            selections.add(code);
+        }
+
+        mMultiSpinnerCodes.setSelection(selections);
+        mMultiSpinnerCodes.showSpinnerText();
+    }
+
+    private void SetRealtyTypes()
+    {
+        String[] strings = {"Allar tegundir", "Einbýli", "Fjölbýli"};
+        mMultiSpinnerTypes.setItems(strings);
+
+        mMultiSpinnerTypes.setSelection(new String[]{"Allar tegundir"});
+        mMultiSpinnerTypes.showSpinnerText();
     }
 
     @OnClick(R.id.save_filter)
@@ -170,8 +211,8 @@ public class FilterDialog extends DialogFragment
 
     private void CacheRoomRange()
     {
-        String lowerRoom = Integer.toString(mSeekRoomsBar.getSelectedMinValue());
-        String upperRoom = Integer.toString(mSeekRoomsBar.getSelectedMaxValue());
+        String lowerRoom = Integer.toString(mSeekRoomBar.getSelectedMinValue());
+        String upperRoom = Integer.toString(mSeekRoomBar.getSelectedMaxValue());
 
         Prefs.with(getActivity()).Save(Q_LOWER_ROOM_RANGE, lowerRoom);
         Prefs.with(getActivity()).Save(Q_UPPER_ROOM_RANGE, upperRoom);
@@ -200,44 +241,5 @@ public class FilterDialog extends DialogFragment
         }
 
         Prefs.with(getActivity()).Save(REALTY_CODES, codes);
-    }
-
-    private void AddPriceSeekBar()
-    {
-        mSeekPriceBar = new RangeSeekBar<>(5, 100, getActivity());
-
-        mSeekPriceBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
-            @Override
-            public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
-                String priceFromValue = minValue.toString();
-                String priceToValue = maxValue.toString();
-                mPriceFrom.setText(mPriceFromStr + " " + priceFromValue + " m.kr");
-                mPriceTo.setText(mPriceToStr + " " + priceToValue + " m.kr");
-            }
-        });
-
-        mPriceLayout.addView(mSeekPriceBar);
-    }
-
-    private void AddRoomSeekBar()
-    {
-        mSeekRoomsBar = new RangeSeekBar<>(1, 9, getActivity());
-
-        mSeekRoomsBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
-            @Override
-            public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
-                String roomsFrom = minValue.toString();
-                String roomsTo = maxValue.toString();
-                mLowerRoomNumber.setText(mRoomsFromStr + " " + roomsFrom);
-                mUpperRoomNumber.setText(mRoomsToStr + " " + roomsTo);
-            }
-        });
-
-        mRoomsLayout.addView(mSeekRoomsBar);
-    }
-
-    public void setAction(Action action)
-    {
-        this.action = action;
     }
 }
