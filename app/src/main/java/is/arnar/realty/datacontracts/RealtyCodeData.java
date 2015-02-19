@@ -2,7 +2,9 @@ package is.arnar.realty.datacontracts;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RealtyCodeData
+import java.io.Serializable;
+
+public class RealtyCodeData implements Serializable
 {
     @SerializedName("realty_codeid")
     private int Id;
@@ -21,5 +23,5 @@ public class RealtyCodeData
     public int getCode() { return this.Code;}
     public String getName() { return this.Name;}
 
-    public String getNameAndCode() { return this.Name + ", " + this.Code;}
+    public String getNameAndCode() { return this.Name + " - " + this.Code;}
 }

@@ -1,5 +1,6 @@
 package is.arnar.realty.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,9 +32,11 @@ import is.arnar.realty.ui.enums.UserInformationType;
 import is.arnar.realty.utils.ConnectionListener;
 import retrofit.RetrofitError;
 
-public class RealtyFragment extends Fragment implements IRealtyView
+public class RealtyFragment extends Fragment implements IRealtyView, AdapterView.OnItemClickListener
 {
     public RealtyFragment() {}
+
+    public static String EXTRA_REALTY = "is.arnar.realty.ui.REALTY";
 
     @InjectView(R.id.realtyProgress) ProgressBar mProgressRealty;
     @InjectView(R.id.realtyImages)   ListView mListView;
@@ -55,6 +59,8 @@ public class RealtyFragment extends Fragment implements IRealtyView
         setHasOptionsMenu(true);
 
         GetStringValues();
+
+        mListView.setOnItemClickListener(this);
 
         Presenter = new RealtyPresenter(this);
         RefreshData();
@@ -176,5 +182,14 @@ public class RealtyFragment extends Fragment implements IRealtyView
     {
         if (mLayoutNoConnection.getVisibility() == View.VISIBLE)
             mLayoutNoConnection.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        RealtyData realty = (RealtyData) mListView.getAdapter().getItem(position);
+        Intent intent = new Intent(Context(), DetailedRealtyActivity.class);
+        intent.putExtra(EXTRA_REALTY, realty);
+        startActivity(intent);
     }
 }

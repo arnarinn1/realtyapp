@@ -2,9 +2,10 @@ package is.arnar.realty.datacontracts;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RealtyData
+public class RealtyData implements Serializable
 {
     @SerializedName("realtyid")
     private int Id;
@@ -56,5 +57,20 @@ public class RealtyData
     {
         double price = this.Price / 1000000.0;
         return String.format("%.1f m.kr", price);
+    }
+
+    public String getPriceValueBySeperator()
+    {
+        return String.format("%,.2f", this.Price);
+    }
+
+    public String getAssessmentValueBySeperator()
+    {
+        return String.format("%,.2f", this.AssessmentValue);
+    }
+
+    public String getFireInsuranceValueBySeperator()
+    {
+        return String.format("%,.2f", this.FireInsuranceValue);
     }
 }

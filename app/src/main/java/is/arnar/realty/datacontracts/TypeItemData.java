@@ -2,7 +2,9 @@ package is.arnar.realty.datacontracts;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TypeItemData
+import java.io.Serializable;
+
+public class TypeItemData implements Serializable
 {
     @SerializedName("type_itemid")
     private int TypeItemId;

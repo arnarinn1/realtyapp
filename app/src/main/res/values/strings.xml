@@ -14,5 +14,10 @@
     <string name="upperRoom">Herbergi til:</string>
     <string name="no_internet">Verður að tengjast neti til að sjá fasteignir.</string>
     <string name="no_data">Fann engar fasteignir. Prufaðu að útvíkka leitarskilyrðin.</string>
+    <string name="price_information">Verðupplýsingar</string>
+    <string name="price">Verð:</string>
+    <string name="assesment">Fasteignamat:</string>
+    <string name="fire_insurance">Brunabótamat:</string>
+    <string name="description">Lýsing</string>
 
 </resources>

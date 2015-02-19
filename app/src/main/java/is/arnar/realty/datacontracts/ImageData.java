@@ -2,7 +2,9 @@ package is.arnar.realty.datacontracts;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ImageData
+import java.io.Serializable;
+
+public class ImageData implements Serializable
 {
     @SerializedName("realty_imageid")
     private int Id;

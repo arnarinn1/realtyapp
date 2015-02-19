@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -23,8 +26,6 @@ public class RealtyAdapter extends BaseAdapter
     private Context mContext;
     private List<RealtyData> realties;
 
-    private SparseIntArray mPagerPositions = new SparseIntArray();
-
     public RealtyAdapter(Context context, List<RealtyData> realties)
     {
         this.mContext = context;
@@ -38,7 +39,7 @@ public class RealtyAdapter extends BaseAdapter
             ButterKnife.inject(this, view);
         }
 
-        @InjectView(R.id.lvImageViewPager)  ViewPager imageViewPager;
+        @InjectView(R.id.lvImageViewPager) ImageView imageViewPager;
         @InjectView(R.id.lvRealtyName) TextView realtyName;
         @InjectView(R.id.lvRealtyCode) TextView realtyCode;
         @InjectView(R.id.lvRealtyPrice) TextView realtyPrice;
@@ -64,19 +65,11 @@ public class RealtyAdapter extends BaseAdapter
 
         final RealtyData realty = getItem(position);
 
-        ImagePagerAdapter adapter = new ImagePagerAdapter(mContext, realty.getImages());
-
         holder.realtyName.setText(realty.getName());
         holder.realtyCode.setText(realty.getRealtyCode().getNameAndCode());
         holder.realtyPrice.setText(realty.getPriceValue());
 
-        holder.imageViewPager.setAdapter(adapter);
-        holder.imageViewPager.setPageTransformer(true, new DeptPageTransformer());
-
-        Integer pagerPosition = mPagerPositions.get(position);
-        holder.imageViewPager.setCurrentItem(pagerPosition);
-
-        holder.imageViewPager.setOnPageChangeListener(new MyPageChangeListener(position, holder.imageViewPager));
+        Picasso.with(mContext).load(realty.getImages().get(0).getUrl()).into(holder.imageViewPager);
 
         return row;
     }
@@ -94,27 +87,5 @@ public class RealtyAdapter extends BaseAdapter
     @Override
     public long getItemId(int position) {
         return realties.indexOf(getItem(position));
-    }
-
-    private class MyPageChangeListener extends ViewPager.SimpleOnPageChangeListener
-    {
-        private int id;
-        private ViewPager pager;
-
-        public MyPageChangeListener(int id, ViewPager pager)
-        {
-            this.id = id;
-            this.pager = pager;
-        }
-
-        @Override
-        public void onPageSelected(int position)
-        {
-            //If Page is visible, put the position of the viewpager in the sparse array
-            if (pager.isShown())
-            {
-                mPagerPositions.put(id, position);
-            }
-        }
     }
 }
