@@ -18,5 +18,6 @@ public interface IRealtyService
                        @Query("lower_room")  String lowerRoom,
                        @Query("upper_room")  String upperRoom,
                        @Query("realtyCodes") String realtyCodes,
+                       @Query("realty_types") String realtyTypes,
                        Callback<List<RealtyData>> realties);
 }

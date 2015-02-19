@@ -26,6 +26,7 @@ import is.arnar.realty.ui.customviews.RangeSeekBar;
 public class FilterDialog extends DialogFragment
 {
     public static final String REALTY_CODES = "is.arnar.realty.ui.REALTYCODES";
+    public static final String REALTY_TYPES = "is.arnar.realty.ui.REALTYTYPES";
     public static final String Q_LOWER_PRICE_RANGE = "is.arnar.realty.ui.LOWERPRICE";
     public static final String Q_UPPER_PRICE_RANGE = "is.arnar.realty.ui.UPPERPRICE";
     public static final String Q_LOWER_ROOM_RANGE = "is.arnar.realty.ui.LOWERROOM";
@@ -184,7 +185,9 @@ public class FilterDialog extends DialogFragment
             selections.add(code);
         }
 
-        mMultiSpinnerCodes.setSelection(selections);
+        if (!selections.isEmpty())
+            mMultiSpinnerCodes.setSelection(selections);
+
         mMultiSpinnerCodes.showSpinnerText();
     }
 
@@ -193,7 +196,19 @@ public class FilterDialog extends DialogFragment
         String[] strings = {"Allar tegundir", "Einbýli", "Fjölbýli"};
         mMultiSpinnerTypes.setItems(strings);
 
-        mMultiSpinnerTypes.setSelection(new String[]{"Allar tegundir"});
+        Set<String> types = Prefs.with(getActivity()).GetStringSet(REALTY_TYPES, new HashSet<String>());
+        if (types.isEmpty())
+            mMultiSpinnerTypes.setSelection(new String[]{"Allar tegundir"});
+
+        List<String> selections = new ArrayList<>();
+        for(String type : types)
+        {
+            selections.add(type);
+        }
+
+        if (!selections.isEmpty())
+            mMultiSpinnerTypes.setSelection(selections);
+
         mMultiSpinnerTypes.showSpinnerText();
     }
 
@@ -201,8 +216,9 @@ public class FilterDialog extends DialogFragment
     public void OnClickSaveFilter()
     {
         CachePriceRange();
-        CacheRealtyCodes();
         CacheRoomRange();
+        CacheRealtyCodes();
+        CacheRealtyTypes();
 
         dismiss();
 
@@ -241,5 +257,18 @@ public class FilterDialog extends DialogFragment
         }
 
         Prefs.with(getActivity()).Save(REALTY_CODES, codes);
+    }
+
+    private void CacheRealtyTypes()
+    {
+        List<String> items = mMultiSpinnerTypes.getSelectedStrings();
+        HashSet<String> types = new HashSet<>();
+        for (String item : items)
+        {
+            if (!item.equals("Allar tegundir"))
+                types.add(item);
+        }
+
+        Prefs.with(getActivity()).Save(REALTY_TYPES, types);
     }
 }

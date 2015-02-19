@@ -29,7 +29,13 @@ public class RealtyPresenter extends BasePresenter<IRealtyView, IRealtyService, 
         String lowerRoom = Prefs.with(View.Context()).GetString(FilterDialog.Q_LOWER_ROOM_RANGE, "1");
         String upperRoom = Prefs.with(View.Context()).GetString(FilterDialog.Q_UPPER_ROOM_RANGE, "9");
 
-        System.QueryRealties(priceFrom, priceTo, lowerRoom, upperRoom, RealtyCodeQueryString(), callback);
+        System.QueryRealties(priceFrom,
+                            priceTo,
+                            lowerRoom,
+                            upperRoom,
+                            RealtyCodeQueryString(),
+                            RealtyTypeQueryString(),
+                            callback);
     }
 
     Callback<List<RealtyData>> callback = new Callback<List<RealtyData>>()
@@ -68,6 +74,21 @@ public class RealtyPresenter extends BasePresenter<IRealtyView, IRealtyService, 
         serviceCode = serviceCode.substring(0, serviceCode.length()-1);
 
         return serviceCode;
+    }
+
+    private String RealtyTypeQueryString()
+    {
+        Set<String> types = Prefs.with(View.Context()).GetStringSet(FilterDialog.REALTY_TYPES, new HashSet<String>());
+        if (types.isEmpty()) return null;
+        String typeQuery = "";
+        for(String type : types)
+        {
+            typeQuery += type + "-";
+        }
+
+        typeQuery = typeQuery.substring(0, typeQuery.length()-1);
+
+        return typeQuery;
     }
 
     private double PriceQueryParam(String extraValue, int defValue)
