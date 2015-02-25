@@ -3,9 +3,18 @@ package is.arnar.realty.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,6 +30,9 @@ import is.arnar.realty.ui.transformers.DeptPageTransformer;
 public class DetailedRealtyActivity extends BaseActivity
 {
     private RealtyData mRealty;
+
+    @InjectView(R.id.transparent_image) ImageView mTransparentMapsImage;
+    @InjectView(R.id.main_scrollview) ScrollView mMainScrollView;
 
     @InjectView(R.id.imageViewPager) ViewPager mViewPager;
     @InjectView(R.id.realtyName)     TextView mRealtyTextView;
@@ -70,6 +82,10 @@ public class DetailedRealtyActivity extends BaseActivity
         //Description Section
         mRealtyDescription.setText(mRealty.getDescription());
 
+        //Google Maps Position
+        SetMapsPosition();
+        SetTouchListenerForMapsImage();
+
         //Properties Section
         SetProperties();
 
@@ -110,5 +126,49 @@ public class DetailedRealtyActivity extends BaseActivity
         }
 
         mRealtyProperties.setText(sb.toString());
+    }
+
+    private void SetMapsPosition()
+    {
+        GoogleMap map;
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+
+        final LatLng realtyLocation = new LatLng(mRealty.getLatitude(), mRealty.getLongitude());
+        Marker marker = map.addMarker(new MarkerOptions()
+                .position(realtyLocation)
+                .title(mRealty.getName())
+                .draggable(false));
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(realtyLocation, 14));
+    }
+
+    private void SetTouchListenerForMapsImage()
+    {
+        mTransparentMapsImage.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        mMainScrollView.requestDisallowInterceptTouchEvent(true);
+                        // Disable touch on transparent view
+                        return false;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        mMainScrollView.requestDisallowInterceptTouchEvent(false);
+                        return true;
+
+                    case MotionEvent.ACTION_MOVE:
+                        mMainScrollView.requestDisallowInterceptTouchEvent(true);
+                        return false;
+
+                    default:
+                        return true;
+                }
+            }
+        });
     }
 }

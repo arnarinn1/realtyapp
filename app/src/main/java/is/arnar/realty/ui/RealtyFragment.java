@@ -92,6 +92,9 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
             case R.id.action_filter:
                 ShowFilter();
                 return true;
+            case R.id.action_maps:
+                ShowMaps();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -170,6 +173,12 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
             }
         });
         dialog.show((Context()).getFragmentManager(), "dialog");
+    }
+
+    private void ShowMaps()
+    {
+        Intent intent = new Intent(Context(), MapsActivity.class);
+        startActivity(intent);
     }
 
     private void GetStringValues()

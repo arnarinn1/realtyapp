@@ -28,6 +28,12 @@ public class RealtyData implements Serializable
     @SerializedName("location")
     private String Location;
 
+    @SerializedName("latitude")
+    private double Latitude;
+
+    @SerializedName("longitude")
+    private double Longitude;
+
     @SerializedName("realtor")
     private RealtorData Realtor;
 
@@ -57,6 +63,9 @@ public class RealtyData implements Serializable
     public RealtyCodeData getRealtyCode() { return this.RealtyCode;}
     public List<ImageData> getImages() { return this.Images;}
     public List<PropertyData> getProperties() { return this.Properties;}
+
+    public double getLatitude() { return this.Latitude;}
+    public double getLongitude() { return this.Longitude;}
 
     public String getCreatedAt() { return this.CreatedAt;}
     public String getUpdatedAt() { return this.UpdatedAt;}
