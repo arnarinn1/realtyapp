@@ -1,13 +1,11 @@
 package is.arnar.realty.presentation.view;
 
-import android.support.v4.app.FragmentActivity;
-
+import android.content.Context;
 import retrofit.RetrofitError;
 
-public interface IView<TModel>
+public interface IView
 {
-    TModel Model();
-    FragmentActivity Context();
+    Context Context();
     void ShowError(RetrofitError ex);
     void Busy(boolean isBusy);
 }

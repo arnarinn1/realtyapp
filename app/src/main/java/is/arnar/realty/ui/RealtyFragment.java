@@ -1,10 +1,10 @@
 package is.arnar.realty.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -110,13 +110,7 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
     }
 
     @Override
-    public RealtyData Model()
-    {
-        return null;
-    }
-
-    @Override
-    public FragmentActivity Context()
+    public Context Context()
     {
         return this.getActivity();
     }
@@ -172,7 +166,7 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
                 RefreshData();
             }
         });
-        dialog.show((Context()).getFragmentManager(), "dialog");
+        dialog.show(getActivity().getFragmentManager(), "dialog");
     }
 
     private void ShowMaps()

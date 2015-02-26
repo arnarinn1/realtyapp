@@ -3,7 +3,7 @@ package is.arnar.realty.presentation.presenter;
 import java.util.List;
 
 import is.arnar.realty.datacontracts.RealtyData;
-import is.arnar.realty.presentation.view.IRealtyView;
+import is.arnar.realty.presentation.view.IMapsView;
 import is.arnar.realty.services.IRealtyService;
 import is.arnar.realty.systems.Prefs;
 import is.arnar.realty.systems.SystemFacade;
@@ -12,9 +12,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class RealtyPresenter extends BasePresenter<IRealtyView, IRealtyService, RealtyData>
+public class MapsPresenter extends BasePresenter<IMapsView, IRealtyService, RealtyData>
 {
-    public RealtyPresenter(IRealtyView view)
+    public MapsPresenter(IMapsView view)
     {
         super(view, SystemFacade.GetRealtyService());
     }
@@ -28,12 +28,12 @@ public class RealtyPresenter extends BasePresenter<IRealtyView, IRealtyService, 
         String upperRoom = Prefs.with(View.Context()).GetString(FilterDialog.Q_UPPER_ROOM_RANGE, "9");
 
         System.QueryRealties(priceFrom,
-                            priceTo,
-                            lowerRoom,
-                            upperRoom,
-                            RealtyCodeQueryString(),
-                            RealtyTypeQueryString(),
-                            callback);
+                priceTo,
+                lowerRoom,
+                upperRoom,
+                RealtyCodeQueryString(),
+                RealtyTypeQueryString(),
+                callback);
     }
 
     Callback<List<RealtyData>> callback = new Callback<List<RealtyData>>()

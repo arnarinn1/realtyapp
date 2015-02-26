@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:visibility="visible">
 
-    <fragment
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.MapFragment"
+    <FrameLayout
+        android:id="@+id/mapsLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:visibility="invisible">
 
-</LinearLayout>
+        <fragment
+            android:id="@+id/map"
+            class="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/mapsProgress"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="visible"
+        android:layout_gravity="center"/>
+
+</FrameLayout>

@@ -4,7 +4,7 @@ import java.util.List;
 
 import is.arnar.realty.datacontracts.RealtyData;
 
-public interface IRealtyView extends IView
+public interface IMapsView extends IView
 {
-     void Display(List<RealtyData> realties);
+    void Display(List<RealtyData> realties);
 }
