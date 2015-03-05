@@ -5,16 +5,19 @@
 
     <item android:id="@+id/action_refresh"
         android:title="@string/refresh"
+        android:icon="@drawable/ic_action_refresh"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_filter"
         android:title="@string/filter"
+        android:icon="@drawable/ic_action_filter"
         android:orderInCategory="200"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_maps"
         android:title="@string/maps"
+        android:icon="@drawable/ic_action_place_white"
         android:orderInCategory="300"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>
