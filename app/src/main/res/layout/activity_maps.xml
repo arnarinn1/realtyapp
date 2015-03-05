@@ -30,4 +30,6 @@
         android:visibility="visible"
         android:layout_gravity="center"/>
 
+    <include layout="@layout/layout_status" />
+
 </FrameLayout>

@@ -12,7 +12,7 @@ import is.arnar.realty.ui.FilterDialog;
 /**
  * A generic Presenter class
  */
-public class BasePresenter<TView extends IView<TModel>, TSystem extends IRealtyService, TModel>
+public class BasePresenter<TView extends IView, TSystem extends IRealtyService, TModel>
 {
     TView View;
     TSystem System;

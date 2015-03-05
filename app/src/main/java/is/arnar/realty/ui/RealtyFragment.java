@@ -29,7 +29,7 @@ import is.arnar.realty.presentation.presenter.RealtyPresenter;
 import is.arnar.realty.presentation.view.IRealtyView;
 import is.arnar.realty.ui.adapters.RealtyAdapter;
 import is.arnar.realty.ui.enums.UserInformationType;
-import is.arnar.realty.utils.ConnectionListener;
+import is.arnar.realty.utils.ConnectionHandler;
 import retrofit.RetrofitError;
 
 public class RealtyFragment extends Fragment implements IRealtyView, AdapterView.OnItemClickListener
@@ -45,9 +45,6 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
     @InjectView(R.id.userInfoImage) ImageView mUserInfoImage;
     @InjectView(R.id.userInfoText) TextView mUserInfoText;
 
-    private String mNoInternetConnectionStr;
-    private String mNoDataStr;
-
     private RealtyPresenter Presenter;
 
     @Override
@@ -57,8 +54,6 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
 
         //Notify the fragment to participate in populating the menu
         setHasOptionsMenu(true);
-
-        GetStringValues();
 
         mListView.setOnItemClickListener(this);
 
@@ -100,6 +95,10 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
         }
     }
 
+    /*
+     Region - IRealtyView Members
+     */
+
     @Override
     public void Display(List<RealtyData> realties)
     {
@@ -118,32 +117,54 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
     @Override
     public void ShowError(RetrofitError ex)
     {
-        if (!ConnectionListener.isNetworkAvailable(Context()))
+        if (!ConnectionHandler.isNetworkAvailable(Context()))
         {
             ShowUserInformationLayout(UserInformationType.NoConnection);
         }
-    }
-
-    private void ShowUserInformationLayout(UserInformationType type)
-    {
-        if (type == UserInformationType.NoConnection)
-        {
-            mUserInfoImage.setImageDrawable(getResources().getDrawable(R.drawable.no_internet));
-            mUserInfoText.setText(mNoInternetConnectionStr);
-        }
-        else if (type == UserInformationType.NoData)
-        {
-            mUserInfoImage.setImageDrawable(getResources().getDrawable(R.drawable.filter));
-            mUserInfoText.setText(mNoDataStr);
-        }
-
-        mLayoutNoConnection.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void Busy(boolean isBusy)
     {
         mProgressRealty.setVisibility(isBusy ? View.VISIBLE : View.GONE);
+    }
+
+     /*
+     Region - Event Handlers
+     */
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        RealtyData realty = (RealtyData) mListView.getAdapter().getItem(position);
+        Intent intent = new Intent(Context(), DetailedRealtyActivity.class);
+        intent.putExtra(EXTRA_REALTY, realty);
+        startActivity(intent);
+    }
+
+    /*
+     Region - Private
+     */
+
+    private void ShowUserInformationLayout(UserInformationType type)
+    {
+        ((MainActivity)getActivity()).ShowUserInformationLayout(
+                type,
+                mUserInfoText,
+                mUserInfoImage,
+                mLayoutNoConnection);
+    }
+
+    private void ShowMaps()
+    {
+        Intent intent = new Intent(Context(), MapsActivity.class);
+        startActivity(intent);
+    }
+
+    private void HideNoConnectionLayoutIfVisible()
+    {
+        if (mLayoutNoConnection.getVisibility() == View.VISIBLE)
+            mLayoutNoConnection.setVisibility(View.GONE);
     }
 
     private void RefreshData()
@@ -167,32 +188,5 @@ public class RealtyFragment extends Fragment implements IRealtyView, AdapterView
             }
         });
         dialog.show(getActivity().getFragmentManager(), "dialog");
-    }
-
-    private void ShowMaps()
-    {
-        Intent intent = new Intent(Context(), MapsActivity.class);
-        startActivity(intent);
-    }
-
-    private void GetStringValues()
-    {
-        mNoInternetConnectionStr = getActivity().getString(R.string.no_internet);
-        mNoDataStr = getActivity().getString(R.string.no_data);
-    }
-
-    private void HideNoConnectionLayoutIfVisible()
-    {
-        if (mLayoutNoConnection.getVisibility() == View.VISIBLE)
-            mLayoutNoConnection.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-    {
-        RealtyData realty = (RealtyData) mListView.getAdapter().getItem(position);
-        Intent intent = new Intent(Context(), DetailedRealtyActivity.class);
-        intent.putExtra(EXTRA_REALTY, realty);
-        startActivity(intent);
     }
 }

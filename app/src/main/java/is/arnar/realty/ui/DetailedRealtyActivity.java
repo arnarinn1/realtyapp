@@ -52,7 +52,7 @@ public class DetailedRealtyActivity extends BaseActivity
     @InjectView(R.id.realtorPhoneNumber)     TextView mRealtorPhoneNumber;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
