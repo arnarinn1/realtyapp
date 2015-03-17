@@ -172,7 +172,18 @@ public class FilterDialog extends DialogFragment
 
     private void SetRealtyCodeValues()
     {
-        String[] strings = {"Öll svæði", "Reykjavík - 101", "Seltjarnarnes - 170", "Akureyri - 603", "Kópavogur - 200"};
+        String[] strings =
+               {"Öll svæði",
+                "Reykjavík - 101",
+                "Seltjarnarnes - 170",
+                "Kópavogur - 200",
+                "Garðabær - 210",
+                "Álftanes - 225",
+                "Hafnarfjörður - 220",
+                "Mosfellsbær - 270",
+                "Akureyri - 603",
+                "Dalvík - 620"
+                };
         mMultiSpinnerCodes.setItems(strings);
 
         Set<String> codes = Prefs.with(getActivity()).GetStringSet(REALTY_CODES, new HashSet<String>());

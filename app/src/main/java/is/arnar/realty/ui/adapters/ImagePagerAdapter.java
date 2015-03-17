@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +36,7 @@ public class ImagePagerAdapter extends PagerAdapter
         String url = mImages.get(position).getUrl();
 
         ImageView imageView = (ImageView) layout.findViewById(R.id.image);
+        ((TextView)layout.findViewById(R.id.imageNumber)).setText(String.format("%s/%s", position+1, mImages.size()));
 
         Picasso.with(mContext)
                 .load(url)

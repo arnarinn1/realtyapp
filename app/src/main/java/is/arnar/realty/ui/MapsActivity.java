@@ -39,7 +39,6 @@ import is.arnar.realty.utils.ConnectionHandler;
 import retrofit.RetrofitError;
 
 public class MapsActivity extends BaseActivity implements IMapsView
-
 {
     @InjectView(R.id.mapsLayout)    FrameLayout mLayout;
     @InjectView(R.id.mapsProgress)  ProgressBar mProgressMaps;
@@ -172,6 +171,7 @@ public class MapsActivity extends BaseActivity implements IMapsView
                 RealtyData realty = GetRealty(id);
 
                 ((TextView)mView.findViewById(R.id.realtyName)).setText(realty.getName());
+                ((TextView)mView.findViewById(R.id.realtyCode)).setText(realty.getRealtyCode().getNameAndCode());
 
                 final ImageView imageView = (ImageView) mView.findViewById(R.id.realtyImage);
                 imageView.setImageBitmap(null);
